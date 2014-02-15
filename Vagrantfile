@@ -2,30 +2,21 @@
 # vi: set ft=ruby :
 
 VAGRANTFILE_API_VERSION = "2"
-HARVARD_CLASS_NAME = "csci65"
+VM_HOSTNAME = "android-dev-environment"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.box = "precise64"
   config.vm.box_url = "http://files.vagrantup.com/precise64.box"
-  config.vm.host_name = HARVARD_CLASS_NAME
+  config.vm.host_name = VM_HOSTNAME
   
 	# Boot with a GUI so you can see the screen. (Default is headless)
   #This setting is no longer available from vagrant 1.1, use the provider specific setting
 	#config.vm.boot_mode = :gui
   config.vm.provider "virtualbox" do |v|
-    v.name = HARVARD_CLASS_NAME
+    v.name = VM_HOSTNAME
     v.gui = true
   end
-  
-  
-#  config.vm.provider "vmware_fusion" do |v, override|
-#    config.vm.box_url = "http://files.vagrantup.com/precise64_vmware.box"
-#    v.name = HARVARD_CLASS_NAME
-#    v.gui = true
-#    v.vmx["memsize"] = "1024"
-#    v.vmx["numvcpus"] = "1"
-#  end
   
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
@@ -38,7 +29,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # some recipes and/or roles.  
   config.vm.provision :chef_solo do |chef|
 
-    chef.cookbooks_path = "cookbooks"
+    chef.cookbooks_path = "vagrant/cookbooks"
 
     chef.add_recipe "apt"
     chef.add_recipe "git"
@@ -50,7 +41,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.provision "shell", inline: "echo Installing Android ADT bundle and NDK..."
-  config.vm.provision "shell", path: "provision.sh"
+  config.vm.provision "shell", path: "vagrant/provision.sh"
   config.vm.provision "shell", inline: "echo Installation complete"
   
 end

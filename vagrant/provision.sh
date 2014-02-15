@@ -78,7 +78,7 @@ End
 echo "Adding USB device driver information..."
 echo "For more detail see http://developer.android.com/tools/device.html"
 
-sudo cp /vagrant/51-android.rules /etc/udev/rules.d
+sudo cp /vagrant/vagrant/51-android.rules /etc/udev/rules.d
 sudo chmod a+r /etc/udev/rules.d/51-android.rules
 
 sudo service udev restart
