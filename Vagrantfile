@@ -11,20 +11,21 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.host_name = HARVARD_CLASS_NAME
   
 	# Boot with a GUI so you can see the screen. (Default is headless)
-	# config.vm.boot_mode = :gui
+  #This setting is no longer available from vagrant 1.1, use the provider specific setting
+	#config.vm.boot_mode = :gui
   config.vm.provider "virtualbox" do |v|
     v.name = HARVARD_CLASS_NAME
     v.gui = true
   end
   
   
-  config.vm.provider "vmware_fusion" do |v, override|
-    config.vm.box_url = "http://files.vagrantup.com/precise64_vmware.box"
-    v.name = HARVARD_CLASS_NAME
-    v.gui = true
-    v.vmx["memsize"] = "1024"
-    v.vmx["numvcpus"] = "1"
-  end
+#  config.vm.provider "vmware_fusion" do |v, override|
+#    config.vm.box_url = "http://files.vagrantup.com/precise64_vmware.box"
+#    v.name = HARVARD_CLASS_NAME
+#    v.gui = true
+#    v.vmx["memsize"] = "1024"
+#    v.vmx["numvcpus"] = "1"
+#  end
   
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
